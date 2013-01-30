@@ -2,7 +2,7 @@
 using LayoutEditor.Core.Util;
 using NUnit.Framework;
 
-namespace DocumentEditor.Tests.Core
+namespace DocumentEditor.Core.Tests
 {
     public class BasicRevisionTests
     {

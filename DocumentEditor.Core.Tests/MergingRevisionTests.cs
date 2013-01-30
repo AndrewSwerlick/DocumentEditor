@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using DocumentEditor.Core;
-using DocumentEditor.Tests.Core.Util;
+﻿using System.Collections.Generic;
+using DocumentEditor.Core.Tests.Util;
 using NUnit.Framework;
 using DocumentEditor.Core.Models;
 
-namespace DocumentEditor.Tests.Core
+namespace DocumentEditor.Core.Tests
 {
     public class MergingRevisionTests
     {

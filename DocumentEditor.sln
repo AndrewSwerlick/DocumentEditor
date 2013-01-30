@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{41BFEF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Core", "DocumentEditor.Core\DocumentEditor.Core.csproj", "{F12076FC-0950-4C9F-BADD-B624BB0DA0FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Tests.Core", "DocumentEditor.Tests.Core\DocumentEditor.Tests.Core.csproj", "{0FB4DAB6-1EBD-45B4-B09C-452AA091B143}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Core.Tests", "DocumentEditor.Tests.Core\DocumentEditor.Core.Tests.csproj", "{0FB4DAB6-1EBD-45B4-B09C-452AA091B143}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Infrastrcture", "DocumentEditor.Infrastrcture\DocumentEditor.Infrastrcture.csproj", "{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}"
 EndProject

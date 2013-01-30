@@ -1,7 +1,7 @@
 ﻿using System;
 using DocumentEditor.Core.Models;
 
-namespace DocumentEditor.Tests.Core
+namespace DocumentEditor.Core.Tests
 {
     public class TestRevision : IRevision
     {

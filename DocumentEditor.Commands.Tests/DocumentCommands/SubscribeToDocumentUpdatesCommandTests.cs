@@ -2,7 +2,7 @@
 using DocumentEditor.Commands.DTOs;
 using DocumentEditor.Commands.DocumentCommands;
 using DocumentEditor.Core.Models;
-using DocumentEditor.Tests.Core.Util;
+using DocumentEditor.Core.Tests.Util;
 using Microsoft.AspNet.SignalR;
 using NSubstitute;
 using NUnit.Framework;

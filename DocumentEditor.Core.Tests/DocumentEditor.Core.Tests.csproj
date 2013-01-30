@@ -8,8 +8,8 @@
     <ProjectGuid>{0FB4DAB6-1EBD-45B4-B09C-452AA091B143}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DocumentEditor.Tests.Core</RootNamespace>
-    <AssemblyName>DocumentEditor.Tests.Core</AssemblyName>
+    <RootNamespace>DocumentEditor.Core.Tests</RootNamespace>
+    <AssemblyName>DocumentEditor.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>

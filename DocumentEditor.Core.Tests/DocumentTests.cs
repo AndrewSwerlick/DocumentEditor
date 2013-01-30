@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using DocumentEditor.Core;
 using DocumentEditor.Core.Models;
-using DocumentEditor.Tests.Core.Util;
+using DocumentEditor.Core.Tests.Util;
 using NUnit.Framework;
 
-namespace DocumentEditor.Tests.Core
+namespace DocumentEditor.Core.Tests
 {
     public class DocumentTests
     {
