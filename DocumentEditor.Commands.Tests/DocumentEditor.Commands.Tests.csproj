@@ -81,6 +81,10 @@
       <Project>{bf6dc2a3-392f-4098-a1db-699ae47f4690}</Project>
       <Name>DocumentEditor.Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DocumentEditor.Core.Tests\DocumentEditor.Core.Tests.csproj">
+      <Project>{0fb4dab6-1ebd-45b4-b09c-452aa091b143}</Project>
+      <Name>DocumentEditor.Core.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DocumentEditor.Core\DocumentEditor.Core.csproj">
       <Project>{f12076fc-0950-4c9f-badd-b624bb0da0fc}</Project>
       <Name>DocumentEditor.Core</Name>
@@ -88,10 +92,6 @@
     <ProjectReference Include="..\DocumentEditor.Infrastrcture\DocumentEditor.Infrastrcture.csproj">
       <Project>{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}</Project>
       <Name>DocumentEditor.Infrastrcture</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DocumentEditor.Tests.Core\DocumentEditor.Core.Tests.csproj">
-      <Project>{0FB4DAB6-1EBD-45B4-B09C-452AA091B143}</Project>
-      <Name>DocumentEditor.Core.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

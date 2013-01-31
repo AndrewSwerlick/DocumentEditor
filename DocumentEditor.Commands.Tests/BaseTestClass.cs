@@ -26,6 +26,12 @@ namespace DocumentEditor.Commands.Tests
             Session = DocumentStore.OpenSession();
         }
 
+        [TearDown] 
+        public void TearDown()
+        {
+            Session.Dispose();
+        }
+
         public void ExecuteCommand(ICommand command)
         {
             command.Session = Session;
