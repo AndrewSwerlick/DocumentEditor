@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DocumentEditor.Web.Tests</RootNamespace>
-    <AssemblyName>DocumentEditor.Web.Tests</AssemblyName>
+    <RootNamespace>DocumentEditor.Infrastructure.Tests</RootNamespace>
+    <AssemblyName>DocumentEditor.Infrastructure.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -31,45 +31,28 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>..\packages\AutoMapper.2.2.1-ci9001\lib\net40\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\DocumentEditor.Web\Bin\Ninject.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Abstractions">
-      <HintPath>..\packages\RavenDB.Client.2.0.2246-Unstable\lib\net40\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Client.2.0.2251-Unstable\lib\net40\Raven.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Embedded">
-      <HintPath>..\packages\RavenDB.Embedded.2.0.2246-Unstable\lib\net40\Raven.Client.Embedded.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Embedded.2.0.2251-Unstable\lib\net40\Raven.Client.Embedded.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Client.Lightweight">
-      <HintPath>..\packages\RavenDB.Client.2.0.2246-Unstable\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Client.2.0.2251-Unstable\lib\net40\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="Raven.Database">
-      <HintPath>..\packages\RavenDB.Database.2.0.2246-Unstable\lib\net40\Raven.Database.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Database.2.0.2251-Unstable\lib\net40\Raven.Database.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.WebRequest" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.SelfHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.SelfHost.4.0.20918.0\lib\net40\System.Web.Http.SelfHost.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,14 +60,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration\BaseIntegrationTestClass.cs" />
-    <Compile Include="Integration\DocumentsControllerTests.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="RavenDBPersistanceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DocumentEditor.Core.Tests\DocumentEditor.Core.Tests.csproj">
+      <Project>{0FB4DAB6-1EBD-45B4-B09C-452AA091B143}</Project>
+      <Name>DocumentEditor.Core.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DocumentEditor.Core\DocumentEditor.Core.csproj">
       <Project>{F12076FC-0950-4C9F-BADD-B624BB0DA0FC}</Project>
       <Name>DocumentEditor.Core</Name>
@@ -93,13 +80,9 @@
       <Project>{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}</Project>
       <Name>DocumentEditor.Infrastrcture</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DocumentEditor.Web\DocumentEditor.Web.csproj">
-      <Project>{F5A5134E-A467-4B54-B069-BD5269F8185C}</Project>
-      <Name>DocumentEditor.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Serialization\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

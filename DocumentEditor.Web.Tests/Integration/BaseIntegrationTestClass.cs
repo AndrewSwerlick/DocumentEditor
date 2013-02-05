@@ -32,6 +32,7 @@ namespace DocumentEditor.Web.Tests.Integration
             {
                 RunInMemory = true
             };
+          
             DocumentStore.Initialize();
             Session = DocumentStore.OpenSession();
             Url = "http://localhost:" + GetRandomUnusedPort();

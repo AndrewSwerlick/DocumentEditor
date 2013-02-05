@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Web", "Docum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Web.Tests", "DocumentEditor.Web.Tests\DocumentEditor.Web.Tests.csproj", "{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Infrastructure.Tests", "DocumentEditor.Infrastructure.Tests\DocumentEditor.Infrastructure.Tests.csproj", "{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

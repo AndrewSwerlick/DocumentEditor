@@ -63,7 +63,6 @@ namespace DocumentEditor.Core.Models
             NotifySubscribers(appliedRevision);
         }
 
-
         public IRevision LoadRevision(Guid id)
         {
             return _revisionMap.ContainsKey(id) ? _revisionMap[id].Item1 : null;
@@ -114,7 +113,6 @@ namespace DocumentEditor.Core.Models
 
             return revision1Parents.Intersect(revision2Parents).Any() ? revision1Parents.Intersect(revision2Parents).Single() : null;
         }
-
 
         private enum RevisionStatus
         {
