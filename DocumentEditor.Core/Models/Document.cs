@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Raven.Imports.Newtonsoft.Json;
 
 namespace DocumentEditor.Core.Models
 {
@@ -30,7 +31,6 @@ namespace DocumentEditor.Core.Models
             CurrentRevision = intialRevision;
             _revisionMap.Add(intialRevision.Id, Tuple.Create(intialRevision, RevisionStatus.Applied));
         }
-
         public void Edit(IRevision revision)
         {
             var appliedRevision = revision;
@@ -62,7 +62,6 @@ namespace DocumentEditor.Core.Models
             CurrentRevision = appliedRevision;
             NotifySubscribers(appliedRevision);
         }
-
         public IRevision LoadRevision(Guid id)
         {
             return _revisionMap.ContainsKey(id) ? _revisionMap[id].Item1 : null;

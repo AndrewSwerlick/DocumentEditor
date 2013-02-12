@@ -58,6 +58,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyName.cs" />
     <Compile Include="Serialization\IgnoreListContractResolver.cs" />
+    <Compile Include="Serialization\RevisionCreationConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

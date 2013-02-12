@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
+using DocumentEditor.Commands.DocumentCommands;
 using DocumentEditor.Core.Models;
 using DocumentEditor.Web.Models;
 using Raven.Client;
@@ -22,6 +23,12 @@ namespace DocumentEditor.Web.Controllers
         {
             var document = DocSession.Load<Document>("documents/" + id);
             return Mapper.Map<Document, DocumentData>(document);
+        }
+
+        public void Create(string name)
+        {
+            var command = new CreateDocumentCommand(name) {Session = DocSession};
+            command.Execute();
         }
     
     }

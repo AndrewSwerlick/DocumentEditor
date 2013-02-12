@@ -8,17 +8,24 @@ using Raven.Imports.Newtonsoft.Json.Serialization;
 
 namespace DocumentEditor.Infrastrcture.Serialization
 {
-    public class IgnoreListContractResolver : DefaultContractResolver
+    public class FluentContractResolver : DefaultContractResolver
     {
         private readonly IDictionary<Type,string> _ignoredProperties = new Dictionary<Type, string>();
+        private readonly IList<Type> _referenceTypes = new List<Type>(); 
 
-        public DefaultContractResolver IgnoreProperty<TSource>(
+        public FluentContractResolver IgnoreProperty<TSource>(
             Expression<Func<TSource, object>> propertyLambda)
         {
-            var name = PropertyName.For<TSource>(propertyLambda);
+            var name = PropertyName.For(propertyLambda);
             _ignoredProperties.Add(typeof(TSource), name);
             return this;
         }
+        public FluentContractResolver MarkAsReference<TSource>()
+        {
+           _referenceTypes.Add(typeof(TSource));
+            return this;
+        }
+
 
         protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
         {            
@@ -29,10 +36,10 @@ namespace DocumentEditor.Infrastrcture.Serialization
             properties.RemoveAll(p => propsToIgnore.Contains(p.PropertyName));            
             return properties;
         }
-
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
-        {
+        {            
             var prop = base.CreateProperty(member, memberSerialization);
+            
             if (!prop.Writable)
             {
                 var property = member as PropertyInfo;
@@ -44,6 +51,15 @@ namespace DocumentEditor.Infrastrcture.Serialization
             }
 
             return prop;
+        }
+        protected override JsonObjectContract CreateObjectContract(Type objectType)
+        {
+            var contract = base.CreateObjectContract(objectType);
+            if (_referenceTypes.Any(t=> t.IsAssignableFrom(objectType)))
+            {
+                contract.IsReference = true;
+            }
+            return contract;
         }
     }
 }

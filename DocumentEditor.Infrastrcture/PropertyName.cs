@@ -12,13 +12,6 @@ namespace DocumentEditor.Infrastrcture
             return GetMemberName(body);
         }
 
-        public static string For(
-            Expression<Func<object>> expression)
-        {
-            var body = expression.Body;
-            return GetMemberName(body);
-        }
-
         private static string GetMemberName(
             Expression expression)
         {

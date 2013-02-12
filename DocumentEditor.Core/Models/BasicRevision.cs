@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using LayoutEditor.Core.Util;
+
 namespace DocumentEditor.Core.Models
 {
     public class BasicRevision : IRevision
@@ -9,7 +10,17 @@ namespace DocumentEditor.Core.Models
         public IRevision PreviousRevisionAppliedTo { get; private set; }
         public IRevision NextRevisionApplied { get; set; }
         public Guid Id { get; private set; }
-        public List<Patch> Patches { get; private set; }
+        private List<Patch> Patches { get; set; }
+
+        /// <summary>
+        /// Private parameterless constructor for JSON.Net to ensure the object can be deserialized
+        /// </summary>
+        // ReSharper disable UnusedMember.Local
+        private BasicRevision()
+        {
+            
+        }
+        // ReSharper restore UnusedMember.Local
 
         public BasicRevision(IRevision revison, List<Patch> revisionPatches)
         {

@@ -4,9 +4,9 @@ namespace DocumentEditor.Core.Models
 {
     public class InitialRevision : IRevision
     {
-        public string Content { get; private set; }
-        public IRevision PreviousRevisionAppliedTo { get { return null; } }
+        private string Content { get; set; }
         public IRevision NextRevisionApplied { get; set; }
+        public IRevision PreviousRevisionAppliedTo { get { return null; } }
         public Guid Id { get; private set; }
 
         public InitialRevision()

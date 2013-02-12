@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Raven.Client;
 using Raven.Client.Embedded;
 
@@ -11,9 +6,9 @@ namespace DocumentEditor.Commands.Tests
 {
     public class BaseTestClass
     {
-        public EmbeddableDocumentStore DocumentStore { get; set; }
+        private EmbeddableDocumentStore DocumentStore { get; set; }
 
-        public IDocumentSession Session { get; set; }
+        protected IDocumentSession Session { get; private set; }
 
         [SetUp]
         public void Setup()
@@ -32,7 +27,7 @@ namespace DocumentEditor.Commands.Tests
             Session.Dispose();
         }
 
-        public void ExecuteCommand(ICommand command)
+        protected void ExecuteCommand(ICommand command)
         {
             command.Session = Session;
             command.Execute();

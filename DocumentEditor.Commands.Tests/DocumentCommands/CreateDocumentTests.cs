@@ -1,9 +1,7 @@
 ﻿using DocumentEditor.Commands.DocumentCommands;
-using DocumentEditor.Core;
 using DocumentEditor.Core.Models;
 using NUnit.Framework;
 using Raven.Client;
-using Raven.Client.Embedded;
 using Raven.Client.Linq;
 
 namespace DocumentEditor.Commands.Tests.DocumentCommands

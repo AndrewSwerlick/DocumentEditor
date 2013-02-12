@@ -24,10 +24,7 @@ namespace DocumentEditor.Infrastructure.Tests
                             Port = 12345,
                         },
                 };
-            var resolver = new IgnoreListContractResolver()
-                .IgnoreProperty<IRevision>(r => r.NextRevisionApplied);
-            DocumentStore.Conventions.CustomizeJsonSerializer =
-                serializer => serializer.ContractResolver = resolver;
+            
             DocumentStore.Initialize();
 
             Document document = null;

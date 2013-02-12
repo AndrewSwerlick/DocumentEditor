@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Composition.Hosting;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DocumentEditor.Core.Models;
+﻿using DocumentEditor.Core.Models;
+using DocumentEditor.Core.Tests.Util;
+using DocumentEditor.Infrastrcture.Serialization;
 using NUnit.Framework;
-using Raven.Client;
-using Raven.Client.Document;
 using Raven.Client.Embedded;
-using Raven.Database.Server;
 
 namespace DocumentEditor.Infrastructure.Tests
 {
     public class RavenDBPersistanceTests
     {
-        public EmbeddableDocumentStore DocumentStore { get; set; }
-
-        public IDocumentSession Session { get; set; }
+        private EmbeddableDocumentStore DocumentStore { get; set; }
 
         [SetUp]
         public void Setup()
@@ -25,20 +16,35 @@ namespace DocumentEditor.Infrastructure.Tests
             DocumentStore = new EmbeddableDocumentStore
                 {
                     RunInMemory = true,
-                    UseEmbeddedHttpServer = true,
-                    Configuration =
-                        {
-                            Port = 12345,
-                        },
+                    
                 };
+            DocumentStore.Conventions.CustomizeJsonSerializer =
+                serializer =>
+                serializer.ContractResolver = new FluentContractResolver().MarkAsReference<IRevision>();
             DocumentStore.Initialize();
         }
-
-
-        [TearDown]
-        public void TearDown()
+     
+        [Test]
+        public void
+            Ensure_That_When_We_Save_And_Then_Reload_a_Document_That_The_NextRevision_Applied_Property_On_Its_Revisios_Is_Populated
+            ()
         {
-            DocumentStore.HttpServer.Dispose();
-        }      
+            Document document;
+            using (var session = DocumentStore.OpenSession())
+            {
+                document = new Document("Test");
+                var revision = new BasicRevision(document.CurrentRevision, Patches.Make(document.Contents, "Test2"));
+                document.Edit(revision);
+                session.Store(document);
+
+                session.SaveChanges();
+            }
+
+            using (var session = DocumentStore.OpenSession())
+            {
+                var loadedDoc = session.Load<Document>(document.Id);
+                Assert.That(loadedDoc.CurrentRevision.PreviousRevisionAppliedTo.NextRevisionApplied, Is.EqualTo(loadedDoc.CurrentRevision));
+            }
+        }
     }
 }
