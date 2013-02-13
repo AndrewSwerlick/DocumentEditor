@@ -48,7 +48,7 @@
     <Compile Include="DocumentCommands\AddRevisionToDocumentCommand.cs" />
     <Compile Include="DocumentCommands\CreateDocumentCommand.cs" />
     <Compile Include="DocumentCommands\SubscribeToDocumentUpdatesCommand.cs" />
-    <Compile Include="DTOs\RevisionDTO.cs" />
+    <Compile Include="DTOs\DocumentEditRequest.cs" />
     <Compile Include="DTOs\SubscriptionRequest.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

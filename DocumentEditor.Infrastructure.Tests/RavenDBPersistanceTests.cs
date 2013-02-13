@@ -16,11 +16,14 @@ namespace DocumentEditor.Infrastructure.Tests
             DocumentStore = new EmbeddableDocumentStore
                 {
                     RunInMemory = true,
-                    
+                    Conventions =
+                        {
+                            CustomizeJsonSerializer = serializer =>
+                                                      serializer.ContractResolver =
+                                                      new FluentContractResolver().MarkAsReference<IRevision>()
+                        },
+
                 };
-            DocumentStore.Conventions.CustomizeJsonSerializer =
-                serializer =>
-                serializer.ContractResolver = new FluentContractResolver().MarkAsReference<IRevision>();
             DocumentStore.Initialize();
         }
      

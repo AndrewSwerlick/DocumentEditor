@@ -125,6 +125,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocumentCreationRequest.cs" />
     <Compile Include="Models\DocumentData.cs" />
     <Compile Include="NinjectControllerActivator.cs" />
     <Compile Include="NinjectKernelBuilder.cs" />

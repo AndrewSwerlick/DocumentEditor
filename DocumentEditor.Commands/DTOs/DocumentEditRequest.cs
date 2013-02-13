@@ -4,7 +4,7 @@ using LayoutEditor.Core.Util;
 
 namespace DocumentEditor.Commands.DTOs
 {
-    public class RevisionDTO
+    public class DocumentEditRequest
     {
         public string DocumentId { get; set; }
         public Guid RevisionId { get; set; }

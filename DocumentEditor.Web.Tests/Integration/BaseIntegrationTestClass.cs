@@ -14,7 +14,7 @@ namespace DocumentEditor.Web.Tests.Integration
 {
     public class BaseIntegrationTestClass
     {
-        private EmbeddableDocumentStore DocumentStore { get; set; }
+        protected EmbeddableDocumentStore DocumentStore { get; private set; }
         protected IDocumentSession Session { get; private set; }
         protected string Url { get; private set; }
         protected HttpServer Server { get; private set; }
@@ -44,6 +44,16 @@ namespace DocumentEditor.Web.Tests.Integration
             Server = new HttpServer(config);
         }
       
+        protected Document PopulateDatabaseWithSingleDocument(string contents)
+        {
+            var document = new Document(contents);
+            using (Session)
+            {
+                Session.Store(document);
+                Session.SaveChanges();
+            }
+            return document;
+        }
 
         private static int GetRandomUnusedPort()
         {
@@ -54,7 +64,6 @@ namespace DocumentEditor.Web.Tests.Integration
             listener.Stop();
             return port;
         }
-
         private static IKernel BuildKernal(IDocumentStore store)
         {
             IKernel kernel = new StandardKernel();

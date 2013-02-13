@@ -12,19 +12,19 @@ namespace DocumentEditor.Commands.DocumentCommands
 {
     public class AddRevisionToDocumentCommand : ICommand
     {
-        private readonly RevisionDTO _revisionDTO;
+        private readonly DocumentEditRequest _documentEditRequest;
         public IDocumentSession Session { get; set; }
 
-        public AddRevisionToDocumentCommand(RevisionDTO revision)
+        public AddRevisionToDocumentCommand(DocumentEditRequest revision)
         {
-            _revisionDTO = revision;
+            _documentEditRequest = revision;
         }
 
         public void Execute()
         {
-            var document = Session.Load<Document>(_revisionDTO.DocumentId);
-            var parentRevision = document.LoadRevision(_revisionDTO.RevisionId);
-            var revision = new BasicRevision(parentRevision, _revisionDTO.Patches);
+            var document = Session.Load<Document>(_documentEditRequest.DocumentId);
+            var parentRevision = document.LoadRevision(_documentEditRequest.RevisionId);
+            var revision = new BasicRevision(parentRevision, _documentEditRequest.Patches);
             document.Edit(revision);
         }
     }

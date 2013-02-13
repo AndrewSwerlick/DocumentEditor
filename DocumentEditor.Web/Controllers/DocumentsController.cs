@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
+using System.Web.Mvc;
 using AutoMapper;
+using DocumentEditor.Commands.DTOs;
 using DocumentEditor.Commands.DocumentCommands;
 using DocumentEditor.Core.Models;
 using DocumentEditor.Web.Models;
@@ -25,10 +26,19 @@ namespace DocumentEditor.Web.Controllers
             return Mapper.Map<Document, DocumentData>(document);
         }
 
-        public void Create(string name)
+        public bool Put(int id, DocumentEditRequest request)
         {
-            var command = new CreateDocumentCommand(name) {Session = DocSession};
+            var document = DocSession.Load<Document>("documents/" + id);
+            var command = new AddRevisionToDocumentCommand(request){Session = DocSession};
             command.Execute();
+            return true;
+        }
+
+        public bool Post(DocumentCreationRequest request)
+        {
+            var command = new CreateDocumentCommand(request.Name) {Session = DocSession};
+            command.Execute();
+            return true;
         }
     
     }

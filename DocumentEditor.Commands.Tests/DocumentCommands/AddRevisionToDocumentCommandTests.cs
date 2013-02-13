@@ -20,7 +20,7 @@ namespace DocumentEditor.Commands.Tests.DocumentCommands
             var document = new Document("Test");
             Session.Store(document);
 
-            var revisionDTO = new RevisionDTO
+            var revisionDTO = new DocumentEditRequest
             {
                 DocumentId = document.Id,
                 RevisionId = document.CurrentRevision.Id,

@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using Raven.Imports.Newtonsoft.Json;
 
 namespace DocumentEditor.Core.Models
 {
     public class Document
     {
         private readonly IList<Subscriber> _subcribers;
-        private readonly IDictionary<Guid, Tuple<IRevision, RevisionStatus>> _revisionMap = new Dictionary<Guid, Tuple<IRevision, RevisionStatus>>(); 
+        private IDictionary<Guid, Tuple<IRevision, RevisionStatus>> _revisionMap = new Dictionary<Guid, Tuple<IRevision, RevisionStatus>>();
 
+        public IDictionary<Guid, Tuple<IRevision, RevisionStatus>> Revisions
+        {
+            get { return new Dictionary<Guid, Tuple<IRevision, RevisionStatus>>(_revisionMap); }
+            private set { _revisionMap = value.ToDictionary(pair => pair.Key, pair=> pair.Value); }
+        }
         public string Id { get; private set; }
         public string Name { get; set; }
         public IRevision CurrentRevision {get; private set; }
@@ -86,6 +91,7 @@ namespace DocumentEditor.Core.Models
             else
                 _revisionMap.Add(revision.Id, status);
         }
+
         private static IRevision FindCommonAncestor(IRevision revision1, IRevision revision2)
         {
             var revision1Parents = new List<IRevision>();
@@ -113,7 +119,7 @@ namespace DocumentEditor.Core.Models
             return revision1Parents.Intersect(revision2Parents).Any() ? revision1Parents.Intersect(revision2Parents).Single() : null;
         }
 
-        private enum RevisionStatus
+        public enum RevisionStatus
         {
             Applied,
             Merged,
