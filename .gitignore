@@ -130,6 +130,9 @@ UpgradeLog*.htm
 App_Data/*.mdf
 App_Data/*.ldf
 
+#RavenDB files
+*/App_Data/*
+
 # =========================
 # Windows detritus
 # =========================

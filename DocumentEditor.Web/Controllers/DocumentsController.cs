@@ -13,7 +13,7 @@ using Raven.Client;
 
 namespace DocumentEditor.Web.Controllers
 {
-    public class DocumentsController : DataController
+    public class DocumentsController : DataApiController
     {
         public DocumentsController(IDocumentStore documentStore) : base(documentStore)
         {
