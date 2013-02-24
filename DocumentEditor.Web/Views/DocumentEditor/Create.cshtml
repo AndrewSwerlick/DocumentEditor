@@ -6,3 +6,7 @@
 
 <h2>Create Document</h2>
 
+@using (Html.BeginForm("Create", "DocumentEditor", FormMethod.Post))
+{
+    @Html.TextBox("Name");
+}

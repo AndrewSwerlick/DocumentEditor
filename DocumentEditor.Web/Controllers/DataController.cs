@@ -22,13 +22,17 @@ namespace DocumentEditor.Web.Controllers
             _documentStore = documentStore;
         }
 
-        protected override void Execute(System.Web.Routing.RequestContext requestContext)
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            using (DocSession = _documentStore.OpenSession())
-            {
-                base.Execute(requestContext);
-                DocSession.SaveChanges();
-            }
+            DocSession = _documentStore.OpenSession();
+            base.OnActionExecuting(filterContext);
+        }
+
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            base.OnActionExecuted(filterContext);
+            DocSession.SaveChanges();
+            DocSession.Dispose();
         }
     }
 }

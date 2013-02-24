@@ -35,6 +35,10 @@ namespace DocumentEditor.Core.Models
             CurrentRevision = intialRevision;
             _revisionMap.Add(intialRevision.Id, Tuple.Create(intialRevision, RevisionStatus.Applied));
         }
+        public Document(string contents, string id) : this(contents)
+        {
+            Id = id;
+        }
         public void Edit(IRevision revision)
         {
             var appliedRevision = revision;

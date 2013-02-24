@@ -8,6 +8,9 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using DocumentEditor.Core.Models;
 using DocumentEditor.Web.Models;
+using DocumentEditor.Web.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Raven.Client.Document;
 
 namespace DocumentEditor.Web
@@ -18,10 +21,14 @@ namespace DocumentEditor.Web
         {
             AreaRegistration.RegisterAllAreas();
 
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-           
+            var jsonFormatter = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+            var jSettings = new JsonSerializerSettings();
+            jSettings.Converters.Add(new DiffConverter());
+            jsonFormatter.SerializerSettings = jSettings;
 
             AutoMapper.Mapper.CreateMap<DocumentData, Document>();
         }

@@ -8,6 +8,7 @@ namespace DocumentEditor.Commands.DTOs
     {
         public string DocumentId { get; set; }
         public Guid RevisionId { get; set; }
-        public List<Patch> Patches { get; set; }
+        public Guid ParentRevisionId { get; set; }
+        public Patch[] Patches { get; set; }
     }
 }

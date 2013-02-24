@@ -10,6 +10,7 @@ using DocumentEditor.Core.Models;
 using DocumentEditor.Core.Tests.Util;
 using DocumentEditor.Web.Models;
 using NUnit.Framework;
+using Newtonsoft.Json;
 
 namespace DocumentEditor.Web.Tests.Integration
 {
@@ -45,15 +46,32 @@ namespace DocumentEditor.Web.Tests.Integration
             var document = PopulateDatabaseWithSingleDocument("Test");
             var client = new HttpClient(Server);
             
-            var request = new DocumentEditRequest
+            var data = new DocumentEditRequest
                 {
-                    Patches = Patches.Make("Test", "Test2"),
+                    Patches = Patches.Make("Test", "Test2").ToArray(),
                     DocumentId = document.Id,
                     RevisionId = document.CurrentRevision.Id
                 };
-            var result = client.PutAsJsonAsync(Url + "/api/documents/1", request).Result;
+            
+            var request = client.PutAsJsonAsync(Url + "/api/documents/1", data);
+            var result = request.Result;
+            //sAssert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        }
 
-            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        [Test]
+        public void Ensure_That_We_Can_Post_An_String_Edit_To_A_Document()
+        {
+            var document = PopulateDatabaseWithSingleDocument("Test");
+            var client = new HttpClient(Server);
+            var stringData = "{'DocumentId':'"+document.Id+"'," +
+                             "'ParentRevisionId':'" + document.CurrentRevision.Id + "'," +
+                             "'RevisionId' :' " + Guid.NewGuid() + "'," +
+                             "'Patches':[{'diffs':[[0,'test test'],[1,' test']],'start1':0,'start2':0,'length1':9,'length2':14}]}";
+           
+            var content = new StringContent(stringData);
+            var request = client.PutAsync(Url + "/api/documents/1",content);
+            var result = request.Result;
+            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK), result.Content.ReadAsStringAsync().Result);
         }
     }
 }

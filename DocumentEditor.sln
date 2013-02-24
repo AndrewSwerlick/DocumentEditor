@@ -9,8 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{41BFEF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Core", "DocumentEditor.Core\DocumentEditor.Core.csproj", "{F12076FC-0950-4C9F-BADD-B624BB0DA0FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Infrastrcture", "DocumentEditor.Infrastrcture\DocumentEditor.Infrastrcture.csproj", "{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Commands", "DocumentEditor.Commands\DocumentEditor.Commands.csproj", "{BF6DC2A3-392F-4098-A1DB-699AE47F4690}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Commands.Tests", "DocumentEditor.Commands.Tests\DocumentEditor.Commands.Tests.csproj", "{ECF2A725-BC84-4758-B29D-252464A9AE46}"
@@ -21,7 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Web", "Docum
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Web.Tests", "DocumentEditor.Web.Tests\DocumentEditor.Web.Tests.csproj", "{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentEditor.Infrastructure.Tests", "DocumentEditor.Infrastructure.Tests\DocumentEditor.Infrastructure.Tests.csproj", "{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E0EAF4AF-BECB-48FC-967C-CFC5D07D2F8E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +34,6 @@ Global
 		{F12076FC-0950-4C9F-BADD-B624BB0DA0FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F12076FC-0950-4C9F-BADD-B624BB0DA0FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F12076FC-0950-4C9F-BADD-B624BB0DA0FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BF6DC2A3-392F-4098-A1DB-699AE47F4690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF6DC2A3-392F-4098-A1DB-699AE47F4690}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF6DC2A3-392F-4098-A1DB-699AE47F4690}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,10 +54,6 @@ Global
 		{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70DA5FB5-E422-492C-8ABD-6FD0112E25FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A508B620-D5F4-4B2B-9C51-FCDD0A038FC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

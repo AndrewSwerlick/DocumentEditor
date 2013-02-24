@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 using System.Web.Mvc;
 using AutoMapper;
 using DocumentEditor.Commands.DTOs;
 using DocumentEditor.Commands.DocumentCommands;
 using DocumentEditor.Core.Models;
 using DocumentEditor.Web.Models;
+using DocumentEditor.Web.Serialization;
+using Newtonsoft.Json;
 using Raven.Client;
 
 namespace DocumentEditor.Web.Controllers
@@ -25,11 +29,14 @@ namespace DocumentEditor.Web.Controllers
             var document = DocSession.Load<Document>("documents/" + id);
             return Mapper.Map<Document, DocumentData>(document);
         }
-
-        public bool Put(int id, DocumentEditRequest request)
+        
+        public bool Put(string id, HttpRequestMessage request)
         {
-            var document = DocSession.Load<Document>("documents/" + id);
-            var command = new AddRevisionToDocumentCommand(request){Session = DocSession};
+            var content = request.Content.ReadAsStringAsync().Result;
+            var serializer = new JsonSerializer();
+            serializer.Converters.Add(new DiffConverter());
+            var editReq= serializer.Deserialize<DocumentEditRequest>(new JsonTextReader(new StringReader(content)));
+            var command = new AddRevisionToDocumentCommand(editReq) { Session = DocSession };
             command.Execute();
             return true;
         }

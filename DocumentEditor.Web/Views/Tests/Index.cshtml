@@ -1,0 +1,46 @@
+﻿﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="/Scripts/spec/lib/mocha.css" />
+    <script src="Scripts/require.js"></script>    
+    <script src="/Scripts/spec/lib/mocha.js"></script>
+
+    <script>mocha.setup('bdd')</script>
+    <script>
+        function assert(expr, msg) {
+            if (!expr) throw new Error(msg || 'failed');
+        }
+    </script>;
+    <script>
+        require.config({
+            baseUrl: "/scripts",
+            shim: {
+                "scripts/libs/diff-match-patch": {
+                    exports: 'diff_match_patch'
+                }
+            }
+        });
+        require(['scripts/spec/lib/chai',
+                '@Html.Raw(String.Join("','",ViewBag.TestFiles.ToArray()))'
+            ], function (chai) {
+                mocha.setup('bdd');
+                var assert = chai.assert;
+                var should = chai.should();
+                var expect = chai.expect;
+                mocha.run();
+            });
+    </script>
+
+  </head>
+    <body>
+        <div id="mocha"></div>
+    </body>
+    <script src="/Scripts/live.js" type="text/javascript"></script>
+</html>

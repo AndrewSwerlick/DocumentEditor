@@ -5,7 +5,9 @@ using System.Web.Http.Dispatcher;
 using System.Web.Http.SelfHost;
 using DocumentEditor.Core.Models;
 using DocumentEditor.Web.Models;
+using DocumentEditor.Web.Serialization;
 using NUnit.Framework;
+using Newtonsoft.Json;
 using Ninject;
 using Raven.Client;
 using Raven.Client.Embedded;
@@ -42,6 +44,10 @@ namespace DocumentEditor.Web.Tests.Integration
                 typeof (IHttpControllerActivator),
                 new NinjectControllerActivator(BuildKernal(DocumentStore)));
             Server = new HttpServer(config);
+            var jsonFormatter = config.Formatters.JsonFormatter;
+            var jSettings = new JsonSerializerSettings();
+            jSettings.Converters.Add(new DiffConverter());
+            jsonFormatter.SerializerSettings = jSettings;
         }
       
         protected Document PopulateDatabaseWithSingleDocument(string contents)

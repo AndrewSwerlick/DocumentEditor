@@ -23,8 +23,9 @@ namespace DocumentEditor.Commands.Tests.DocumentCommands
             var revisionDTO = new DocumentEditRequest
             {
                 DocumentId = document.Id,
-                RevisionId = document.CurrentRevision.Id,
-                Patches = Patches.Make(document.Contents, "Test changed")
+                ParentRevisionId = document.CurrentRevision.Id,
+                RevisionId = Guid.NewGuid(),
+                Patches = Patches.Make(document.Contents, "Test changed").ToArray()
             };
             var command = new AddRevisionToDocumentCommand(revisionDTO);
 

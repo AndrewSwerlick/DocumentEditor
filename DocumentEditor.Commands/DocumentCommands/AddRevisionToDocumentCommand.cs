@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,10 @@ namespace DocumentEditor.Commands.DocumentCommands
         public void Execute()
         {
             var document = Session.Load<Document>(_documentEditRequest.DocumentId);
-            var parentRevision = document.LoadRevision(_documentEditRequest.RevisionId);
-            var revision = new BasicRevision(parentRevision, _documentEditRequest.Patches);
+            var parentRevision = document.LoadRevision(_documentEditRequest.ParentRevisionId);
+            if(parentRevision == null)
+                throw new InvalidDataException("Cannot load the revision specified by this DocumentEditRequest");
+            var revision = new BasicRevision(parentRevision, _documentEditRequest.Patches.ToList(), _documentEditRequest.RevisionId);
             document.Edit(revision);
         }
     }

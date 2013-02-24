@@ -6,7 +6,7 @@ using System.Reflection;
 using Raven.Imports.Newtonsoft.Json;
 using Raven.Imports.Newtonsoft.Json.Serialization;
 
-namespace DocumentEditor.Infrastrcture.Serialization
+namespace DocumentEditor.Web.Serialization
 {
     public class FluentContractResolver : DefaultContractResolver
     {

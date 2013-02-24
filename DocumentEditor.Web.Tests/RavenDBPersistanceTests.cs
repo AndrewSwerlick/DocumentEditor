@@ -1,10 +1,10 @@
 ﻿using DocumentEditor.Core.Models;
 using DocumentEditor.Core.Tests.Util;
-using DocumentEditor.Infrastrcture.Serialization;
+using DocumentEditor.Web.Serialization;
 using NUnit.Framework;
 using Raven.Client.Embedded;
 
-namespace DocumentEditor.Infrastructure.Tests
+namespace DocumentEditor.Web.Tests
 {
     public class RavenDBPersistanceTests
     {

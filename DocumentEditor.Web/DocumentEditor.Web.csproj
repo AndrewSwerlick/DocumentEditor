@@ -44,6 +44,15 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.2.2.1-ci9001\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.AspNet">
+      <HintPath>..\packages\Glimpse.AspNet.1.0.0\lib\net40\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\packages\Glimpse.1.0.0\lib\net40\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc3">
+      <HintPath>..\packages\Glimpse.Mvc3.1.0.0\lib\net40\Glimpse.Mvc3.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -83,6 +92,9 @@
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -143,6 +155,8 @@
     <Compile Include="Controllers\DocumentEditorController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\Home.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -151,12 +165,38 @@
     <Compile Include="NinjectControllerActivator.cs" />
     <Compile Include="NinjectKernelBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyName.cs" />
+    <Compile Include="Serialization\DiffConverter.cs" />
+    <Compile Include="Serialization\FluentContractResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\controllers\documentEditorController.js" />
+    <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery.signalR-1.0.0.js" />
+    <Content Include="Scripts\jquery.signalR-1.0.0.min.js" />
+    <Content Include="Scripts\libs\angular-ui.js" />
+    <Content Include="Scripts\libs\angular-ui.min.js" />
+    <Content Include="Scripts\libs\eventEmitter.js" />
+    <Content Include="Scripts\libs\heir.js" />
+    <Content Include="Scripts\libs\rangy-core.js" />
+    <Content Include="Scripts\libs\rangy-selectionsaverestore.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\models\document.js" />
+    <Content Include="Scripts\remoteRevisionListener.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\spec\lib\chai.js" />
+    <Content Include="Scripts\live.js" />
+    <Content Include="Scripts\libs\diff-match-patch.js" />
+    <Content Include="Scripts\spec\lib\mocha.css" />
+    <Content Include="Scripts\spec\lib\mocha.js" />
+    <Content Include="Scripts\spec\models\document_spec.js" />
+    <Content Include="Scripts\utils\guid.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -168,6 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\view\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -199,6 +240,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\DocumentEditor\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Tests\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Error.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

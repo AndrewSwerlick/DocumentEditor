@@ -1,7 +1,27 @@
-﻿@model dynamic
+﻿@model DocumentEditor.Core.Models.Document
 
 @{
     ViewBag.Title = "title";
 }
 
-<h2>title</h2>
+@section Scripts
+{
+    <script src="/Scripts/require.js"></script>
+    <script>
+        define("currentModel", ["models/document"], function(Document) {
+            var currentRevisionId = '@ViewData.Model.CurrentRevision.Id';
+            var currentContent = '@Html.Raw(ViewData.Model.Contents)';
+            var docId = '@ViewData.Model.Id';
+            return new Document(currentRevisionId, currentContent, docId);
+        });
+        require(["/scripts/main.js"]);
+    </script>
+}
+
+<div ng-controller="documentEditorController">
+    <h2>title</h2>
+    <div id="doc" contenteditable="true" 
+         ui-event="{keyup: 'keyup($event)'}"
+        ng-bind-html-unsafe="doc.content">
+    </div>
+</div>

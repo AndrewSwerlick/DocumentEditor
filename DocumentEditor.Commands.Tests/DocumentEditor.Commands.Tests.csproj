@@ -89,10 +89,6 @@
       <Project>{f12076fc-0950-4c9f-badd-b624bb0da0fc}</Project>
       <Name>DocumentEditor.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DocumentEditor.Infrastrcture\DocumentEditor.Infrastrcture.csproj">
-      <Project>{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}</Project>
-      <Name>DocumentEditor.Infrastrcture</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace DocumentEditor.Infrastrcture
+namespace DocumentEditor.Web
 {  
     internal static class PropertyName
     {

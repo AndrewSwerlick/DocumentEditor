@@ -22,12 +22,14 @@ namespace DocumentEditor.Core.Models
         }
         // ReSharper restore UnusedMember.Local
 
-        public BasicRevision(IRevision revison, List<Patch> revisionPatches)
+        public BasicRevision(IRevision revison, List<Patch> revisionPatches, Guid id)
         {
             PreviousRevisionAppliedTo = revison;
             Patches = revisionPatches;
-            Id = Guid.NewGuid();
+            Id = id;
         }
+
+        public BasicRevision(IRevision revision, List<Patch> revisionPatches ) : this(revision,revisionPatches, Guid.NewGuid()){}
 
         public string GenerateEditedContent()
         {

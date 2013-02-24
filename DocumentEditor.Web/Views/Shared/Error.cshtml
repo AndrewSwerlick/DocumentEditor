@@ -1,0 +1,10 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error.cshtml";
+}
+
+<h2>Error</h2>
+<div>
+    @ViewData.Model.Exception.ToString();
+</div>

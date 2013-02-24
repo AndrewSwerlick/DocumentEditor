@@ -80,6 +80,8 @@
     <Compile Include="Integration\BaseIntegrationTestClass.cs" />
     <Compile Include="Integration\DocumentsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RavenDBPersistanceTests.cs" />
+    <Compile Include="Serialization\DiffConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -96,10 +98,6 @@
     <ProjectReference Include="..\DocumentEditor.Core\DocumentEditor.Core.csproj">
       <Project>{F12076FC-0950-4C9F-BADD-B624BB0DA0FC}</Project>
       <Name>DocumentEditor.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DocumentEditor.Infrastrcture\DocumentEditor.Infrastrcture.csproj">
-      <Project>{7ED9F2B4-A186-4AE5-AF01-F879536D5D15}</Project>
-      <Name>DocumentEditor.Infrastrcture</Name>
     </ProjectReference>
     <ProjectReference Include="..\DocumentEditor.Web\DocumentEditor.Web.csproj">
       <Project>{F5A5134E-A467-4B54-B069-BD5269F8185C}</Project>

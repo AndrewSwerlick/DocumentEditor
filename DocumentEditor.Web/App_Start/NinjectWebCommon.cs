@@ -1,5 +1,6 @@
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
+using System.Web.Mvc;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Database.Server;
@@ -51,7 +52,7 @@ namespace DocumentEditor.Web.App_Start
             kernel.Bind<IDocumentStore>()
                   .ToMethod(context =>
                       {
-                          var documentStore = new EmbeddableDocumentStore
+                          var documentStore =  new EmbeddableDocumentStore
                               {
                                   UseEmbeddedHttpServer = true,
                                   DataDirectory = "App_Data",
@@ -74,8 +75,8 @@ namespace DocumentEditor.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             GlobalConfiguration.Configuration.Services.Replace(
-                   typeof(IHttpControllerActivator),
-                   new NinjectControllerActivator(kernel));
-        }        
+                typeof (IHttpControllerActivator),
+                new NinjectControllerActivator(kernel));
+        }
     }
 }

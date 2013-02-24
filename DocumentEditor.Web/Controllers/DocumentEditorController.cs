@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DocumentEditor.Commands.DocumentCommands;
+using DocumentEditor.Core.Models;
 using DocumentEditor.Web.Models;
 using Raven.Client;
 
@@ -25,7 +26,8 @@ namespace DocumentEditor.Web.Controllers
 
         public ActionResult Edit(string id)
         {
-            return View();
+            var document = DocSession.Load<Document>(id);
+            return View(document);
         }
 
         [HttpGet]
