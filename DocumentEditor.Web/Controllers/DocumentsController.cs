@@ -10,8 +10,8 @@ using AutoMapper;
 using DocumentEditor.Commands.DTOs;
 using DocumentEditor.Commands.DocumentCommands;
 using DocumentEditor.Core.Models;
+using DocumentEditor.Web.Infrastructure.Serialization;
 using DocumentEditor.Web.Models;
-using DocumentEditor.Web.Serialization;
 using Newtonsoft.Json;
 using Raven.Client;
 
@@ -24,9 +24,9 @@ namespace DocumentEditor.Web.Controllers
             
         }
 
-        public DocumentData Get(int id)
+        public DocumentData Get(string id)
         {
-            var document = DocSession.Load<Document>("documents/" + id);
+            var document = DocSession.Load<Document>(id);
             return Mapper.Map<Document, DocumentData>(document);
         }
         

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Ninject;
+﻿using Ninject;
 using Raven.Client;
 using Raven.Client.Embedded;
 
-namespace DocumentEditor.Web
+namespace DocumentEditor.Web.Infrastructure
 {
     public static class NinjectKernelBuilder
     {

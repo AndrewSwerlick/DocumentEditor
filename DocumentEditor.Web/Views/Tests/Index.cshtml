@@ -22,12 +22,12 @@
         require.config({
             baseUrl: "/scripts",
             shim: {
-                "scripts/libs/diff-match-patch": {
+                "libs/diff-match-patch": {
                     exports: 'diff_match_patch'
                 }
             }
         });
-        require(['scripts/spec/lib/chai',
+        require(['spec/lib/chai',
                 '@Html.Raw(String.Join("','",ViewBag.TestFiles.ToArray()))'
             ], function (chai) {
                 mocha.setup('bdd');

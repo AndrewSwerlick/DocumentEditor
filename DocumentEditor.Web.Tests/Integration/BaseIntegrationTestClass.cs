@@ -4,13 +4,15 @@ using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using System.Web.Http.SelfHost;
 using DocumentEditor.Core.Models;
+using DocumentEditor.Web.Infrastructure;
+using DocumentEditor.Web.Infrastructure.Serialization;
 using DocumentEditor.Web.Models;
-using DocumentEditor.Web.Serialization;
 using NUnit.Framework;
 using Newtonsoft.Json;
 using Ninject;
 using Raven.Client;
 using Raven.Client.Embedded;
+using System;
 
 namespace DocumentEditor.Web.Tests.Integration
 {
@@ -31,28 +33,31 @@ namespace DocumentEditor.Web.Tests.Integration
         public void Setup()
         {
             DocumentStore = new EmbeddableDocumentStore
-            {
-                RunInMemory = true
-            };
+                {
+                    RunInMemory = true,
+                    Conventions =
+                        {
+                            CustomizeJsonSerializer = MvcApplication.SetupSerializer
+                        },
+                };
           
             DocumentStore.Initialize();
             Session = DocumentStore.OpenSession();
+            
             Url = "http://localhost:" + GetRandomUnusedPort();
             var config = new HttpSelfHostConfiguration(Url); 
+            
             WebApiConfig.Register(config);
             config.Services.Replace(
                 typeof (IHttpControllerActivator),
                 new NinjectControllerActivator(BuildKernal(DocumentStore)));
-            Server = new HttpServer(config);
-            var jsonFormatter = config.Formatters.JsonFormatter;
-            var jSettings = new JsonSerializerSettings();
-            jSettings.Converters.Add(new DiffConverter());
-            jsonFormatter.SerializerSettings = jSettings;
+            
+            Server = new HttpServer(config);           
         }
       
         protected Document PopulateDatabaseWithSingleDocument(string contents)
         {
-            var document = new Document(contents);
+            var document = new Document(contents,Guid.NewGuid().ToString());
             using (Session)
             {
                 Session.Store(document);

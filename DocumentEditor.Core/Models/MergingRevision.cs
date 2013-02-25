@@ -42,6 +42,12 @@ namespace DocumentEditor.Core.Models
             return patchResult[0] as string;
         }
 
+        public IList<Patch> BuildPatch()
+        {
+            var lastContent = PreviousRevisionAppliedTo.GenerateEditedContent();
+            return new diff_match_patch().patch_make(lastContent, GenerateEditedContent());
+        }
+
         public void ResolveConflict(IRevision revision)
         {
             if(!RevisionsConflict || RevisionChosenForResolution != null)

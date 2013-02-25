@@ -19,9 +19,9 @@ namespace DocumentEditor.Web.Tests.Integration
         [Test]
         public void Ensure_That_We_Can_Retrieve_Document_Data()
         {
-            PopulateDatabaseWithSingleDocument("Test");
+            var document = PopulateDatabaseWithSingleDocument("Test");
             var client = new HttpClient(Server);
-            var result = client.GetAsync(Url + "/api/documents/1").Result;
+            var result = client.GetAsync(Url + "/api/documents/" + document.Id).Result;
 
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Content.ReadAsAsync<DocumentData>().Result.Contents, Is.EqualTo("Test") );

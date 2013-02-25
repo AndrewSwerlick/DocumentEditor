@@ -1,7 +1,7 @@
 ﻿define([
-        "scripts/models/document",
-        'scripts/utils/guid',
-        'scripts/libs/diff-match-patch',
+        "models/document",
+        'utils/guid',
+        'libs/diff-match-patch',
     ],
     function (Document, guid) {
         describe("Document Tests", function() {
@@ -47,32 +47,54 @@
                     it("ensure it updates the current remote reivsion", function() {
                         document.currentRemoteRevision.id.should.equal(revision.id);
                     });
+                    it("ensure it updates the current revision", function() {
+                        document.currentRevision.id.should.equal(revision.id);
+                    });
                 });
             describe("given a document with one local revision " +
                 "and no remote revisons", function() {
 
-                    function getDocument() {
+                    this.context = function() {
                         var document = new Document();
                         var patch = new diff_match_patch().patch_make("", "Test");
                         document.edit(patch);
                         return document;
-                    }
+                    };
 
                     describe("when we call applyRemoteRevision with " +
                         "a remote revision with the same id", function() {
-                            var document = getDocument();
-                            var revision = {
-                                id: document.currentRevision.id,
-                                patches: document.currentRevision.patch
+                            this.context = function() {
+                                var document = this.parent.context();
+                                var revision = {
+                                    id: document.currentRevision.id,
+                                    patches: document.currentRevision.patch
+                                };
+                                document.applyRemoteRevision(revision);
+                                return document;
                             };
-                            document.applyRemoteRevision(revision);
                             it("ensure it removes the local revision", function() {
+                                var document = this.test.parent.context();
                                 mapObjToArray(document.localrevisions).length.should.equal(0);
+                            });
+                            describe("when we edit the document again  and then apply second remote revision", function() {
+                                var document = this.parent.context();
+                                var patch = new diff_match_patch().patch_make("Test", "Test2");
+                                document.edit(patch);
+                                var revision = {
+                                    id: document.currentRevision.id,
+                                    revisionAppliedTo: document.currentRevision.revisionAppliedTo,
+                                    content: document.content,
+                                    patches: patch
+                                };
+                                document.applyRemoteRevision(revision);
+                                it("ensure the currentRemote revision is updated", function() {
+                                    document.currentRemoteRevision.id.should.equal(revision.id);
+                                });
                             });
                         });
                     describe("when we call applyRemoteRevision with " +
                         "a different id", function() {
-                            var document = getDocument();
+                            var document = this.parent.context();
                             var remotePatch = new diff_match_patch().patch_make("", "Test2");
                             var revision = {
                                 patch: remotePatch,

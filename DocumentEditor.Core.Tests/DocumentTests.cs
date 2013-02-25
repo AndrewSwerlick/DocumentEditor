@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DocumentEditor.Core.Models;
 using DocumentEditor.Core.Tests.Util;
+using LayoutEditor.Core.Util;
 using NUnit.Framework;
 
 namespace DocumentEditor.Core.Tests
@@ -206,7 +208,7 @@ namespace DocumentEditor.Core.Tests
             ()
         {
             var document = new Document("Test");
-            var subscriber = new Subscriber();
+            var subscriber = new Subscriber(Guid.NewGuid().ToString());
             document.AddSubscriber(subscriber);
 
             var revision = new BasicRevision(document.CurrentRevision, Patches.Make(document.Contents, "Test 2"));
@@ -222,19 +224,20 @@ namespace DocumentEditor.Core.Tests
             Given_We_Have_Added_A_Subscriber_To_A_Document_Ensure_That_When_The_Document_Merges_Two_Revisions_The_Subscriber_Is_Notified_With_The_Merging_Revision
             ()
         {
-            var document = new Document("Test");
-            var subscriber = new Subscriber();
+            var document = new Document("I went to the store");
+            var subscriber = new Subscriber(Guid.NewGuid().ToString());
             document.AddSubscriber(subscriber);
 
-            var revision1 = new BasicRevision(document.CurrentRevision, Patches.Make(document.Contents, "Test 2"));
-            var revision2 = new BasicRevision(document.CurrentRevision, Patches.Make(document.Contents, "Test 3"));
-            
-            var notificationContainsMergingRevision = false;
-            subscriber.SubscriberNotifiedOfUpdate += (o, e) => notificationContainsMergingRevision = e.Revision is MergingRevision;
+            var revision1 = new BasicRevision(document.CurrentRevision, Patches.Make(document.Contents, "I went to the store to get some milk"));
+            var revision2 = new BasicRevision(document.CurrentRevision, Patches.Make(document.Contents, "I went to the corner store"));
+            IList<Patch> notifiedPatch = null;
+            subscriber.SubscriberNotifiedOfUpdate +=
+                (o, e) => notifiedPatch = e.patches;
             document.Edit(revision1);
             document.Edit(revision2);
+            var patch = document.CurrentRevision.BuildPatch();
 
-            Assert.That(notificationContainsMergingRevision);
+            Assert.That(notifiedPatch.Select(p=> p.ToString()), Is.EquivalentTo(patch.Select(p=> p.ToString())));
         }
 
         [Test]

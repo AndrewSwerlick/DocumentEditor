@@ -1,6 +1,8 @@
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using System.Web.Mvc;
+using DocumentEditor.Web.Infrastructure;
+using Microsoft.AspNet.SignalR;
 using Raven.Client;
 using Raven.Client.Embedded;
 using Raven.Database.Server;
@@ -46,25 +48,30 @@ namespace DocumentEditor.Web.App_Start
         /// <returns>The created kernel.</returns>
         private static IKernel CreateKernel()
         {
+            var documentStore = new EmbeddableDocumentStore
+                {
+                    UseEmbeddedHttpServer = true,
+                    DataDirectory = "App_Data",
+                    Configuration =
+                        {
+                            Port = 12345,
+                        },
+                    Conventions =
+                        {
+                            CustomizeJsonSerializer = MvcApplication.SetupSerializer
+                        }
+                };
+            documentStore.Initialize();
+            var manager = new SubscriptionManager(documentStore);
+
             var kernel = new StandardKernel();
             kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
             kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
             kernel.Bind<IDocumentStore>()
-                  .ToMethod(context =>
-                      {
-                          var documentStore =  new EmbeddableDocumentStore
-                              {
-                                  UseEmbeddedHttpServer = true,
-                                  DataDirectory = "App_Data",
-                                  Configuration =
-                                  {
-                                      Port = 12345,
-                                  }
-                              };
-                          return documentStore.Initialize();
-                      })
+                  .ToMethod(context => documentStore)
                   .InSingletonScope();
             RegisterServices(kernel);
+            kernel.Bind<SubscriptionManager>().ToMethod(context => manager).InSingletonScope();
             return kernel;
         }
 
@@ -74,6 +81,8 @@ namespace DocumentEditor.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            GlobalHost.DependencyResolver = new SignalRDependencyResolver(kernel);
+
             GlobalConfiguration.Configuration.Services.Replace(
                 typeof (IHttpControllerActivator),
                 new NinjectControllerActivator(kernel));

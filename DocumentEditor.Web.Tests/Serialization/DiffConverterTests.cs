@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DocumentEditor.Commands.DTOs;
-using DocumentEditor.Web.Serialization;
+using DocumentEditor.Web.Infrastructure.Serialization;
 using NUnit.Framework;
 using Newtonsoft.Json;
 

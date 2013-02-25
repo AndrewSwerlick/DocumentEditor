@@ -2,7 +2,7 @@
     paths: {
         "angular": "//ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular",
         "jquery": "//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min",
-        "signalR" :"jquery.signalR-1.0.0.min.js"
+        "signalR" :"jquery.signalR-1.0.0.min"
     },
     shim: {
        "angular": {

@@ -10,7 +10,7 @@ namespace DocumentEditor.Core.Models
         public IRevision PreviousRevisionAppliedTo { get; private set; }
         public IRevision NextRevisionApplied { get; set; }
         public Guid Id { get; private set; }
-        private List<Patch> Patches { get; set; }
+        public List<Patch> Patches { get; private set; }
 
         /// <summary>
         /// Private parameterless constructor for JSON.Net to ensure the object can be deserialized
@@ -35,6 +35,11 @@ namespace DocumentEditor.Core.Models
         {
             var currentContent = PreviousRevisionAppliedTo.GenerateEditedContent();
             return new diff_match_patch().patch_apply(Patches, currentContent)[0] as string;
+        }
+
+        public IList<Patch> BuildPatch()
+        {
+            return Patches;
         }
 
         public override string ToString()

@@ -48,6 +48,7 @@
     <Compile Include="DocumentCommands\AddRevisionToDocumentCommand.cs" />
     <Compile Include="DocumentCommands\CreateDocumentCommand.cs" />
     <Compile Include="DocumentCommands\SubscribeToDocumentUpdatesCommand.cs" />
+    <Compile Include="DocumentCommands\UnsubscribeFromDocumentUpdatesCommand.cs" />
     <Compile Include="DTOs\DocumentEditRequest.cs" />
     <Compile Include="DTOs\SubscriptionRequest.cs" />
     <Compile Include="ICommand.cs" />

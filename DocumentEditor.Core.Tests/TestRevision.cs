@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using DocumentEditor.Core.Models;
+using LayoutEditor.Core.Util;
 
 namespace DocumentEditor.Core.Tests
 {
@@ -19,6 +21,11 @@ namespace DocumentEditor.Core.Tests
         public string GenerateEditedContent()
         {
             return RevisionContent;
+        }
+
+        public IList<Patch> BuildPatch()
+        {
+            return new diff_match_patch().patch_make("", RevisionContent);
         }
     }
 }

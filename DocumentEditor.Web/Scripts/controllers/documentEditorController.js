@@ -9,16 +9,27 @@
             window.testDoc = currentDoc;
             scope.doc = currentDoc;
 
-            var connection = signalR("signalR/documents/subscriptions");
+            var connection = signalR("/signalR/documents/subscriptions");
             connection.received(function (data) {
-                scope.doc.applyRemoteRevision(data);
+                console.log("recieved data from server:" + JSON.stringify(data));
+                if (data.id) {
+                    scope.doc.applyRemoteRevision(data);
+                    scope.$apply();
+                }
             });
-            
+            connection.start().then(function() {
+                connection.send(scope.doc.id);
+            });
+            connection.error(function(error) {
+                console.warn(error);
+            });
+
             var selectionPatch;
             var selection;
             scope.doc.on("contentChanging", function() {
                 var currentText = $("#doc").html();
                 selection = rangy.saveSelection();
+                console.log("selection " + JSON.stringify(selection.rangeInfos) + " saved");
                 var textWithSelection = $("#doc").html();
                 selectionPatch = dmp.patch_make(currentText, textWithSelection);
             });
@@ -27,6 +38,8 @@
                 var textAfterEdit = $("#doc").html();
                 $("#doc").html(dmp.patch_apply(selectionPatch, textAfterEdit)[0]);
                 rangy.restoreSelection(selection);
+                console.log("selection " + JSON.stringify(selection.rangeInfos) + " restored");
+                rangy.removeMarkers(selection);
             });
 
             scope.doc.on("edited", function (revision) {
@@ -36,10 +49,14 @@
                     "Patches": revision.patch,
                     "ParentRevisionId" : revision.revisionAppliedTo
                 };
+                console.log("preparing to send edit " + JSON.stringify(data));
+
                 $.ajax({
                     type: 'PUT',
                     url: "/api/documents/" + scope.doc.id,
-                    data: JSON.stringify(data)
+                    data: JSON.stringify(data)                    
+                }).done(function() {
+                    console.log("revision " + revision.id + " sent");
                 });
             });
 

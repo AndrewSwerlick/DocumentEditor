@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using LayoutEditor.Core.Util;
 
 namespace DocumentEditor.Core.Models
 {
@@ -9,5 +11,6 @@ namespace DocumentEditor.Core.Models
         Guid Id { get; }
 
         string GenerateEditedContent();
+        IList<Patch> BuildPatch();
     }
 }

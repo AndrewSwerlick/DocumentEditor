@@ -95,7 +95,9 @@
             if (correspondingLocalRevision) {
                 var sortedRevisions = this.getSortedLocalRevisions();
                 for (var i = 0;
-                    i < correspondingLocalRevision.order + 1; i++) {
+                    sortedRevisions[i] &&
+                        sortedRevisions[i].order < correspondingLocalRevision.order + 1;
+                    i++) {
                     var revision = sortedRevisions[i];
                     this.remoteRevisions[revision.id] = revision;
                     delete this.localrevisions[revision.id];
@@ -105,6 +107,7 @@
             if (parentRevisionAlreadyApplied && !parentRevisionIsCurrentRemoteRevision)
                 return;
             this.currentRemoteRevision = sucessMessage;
+            this.currentRevision = sucessMessage;
             updateContents.call(this);
         }
 

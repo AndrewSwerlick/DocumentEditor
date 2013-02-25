@@ -6,7 +6,6 @@ namespace DocumentEditor.Core.Models
 {
     public class Document
     {
-        private readonly IList<Subscriber> _subcribers;
         private IDictionary<Guid, Tuple<IRevision, RevisionStatus>> _revisionMap = new Dictionary<Guid, Tuple<IRevision, RevisionStatus>>();
 
         public IDictionary<Guid, Tuple<IRevision, RevisionStatus>> Revisions
@@ -19,15 +18,12 @@ namespace DocumentEditor.Core.Models
         public IRevision CurrentRevision {get; private set; }
         public string Contents {get { return CurrentRevision.GenerateEditedContent(); }}
 
-        public IEnumerable<Subscriber> Subcribers
-        {
-            get { return _subcribers; }
-        }
+        public IList<Subscriber> Subcribers { get; private set; }
 
         public Document()
         {
             CurrentRevision = new InitialRevision();
-            _subcribers = new List<Subscriber>();
+            Subcribers = new List<Subscriber>();
         }
         public Document(string contents) : this()
         {
@@ -76,7 +72,7 @@ namespace DocumentEditor.Core.Models
         }
         public void AddSubscriber(Subscriber subscriber)
         {
-            _subcribers.Add(subscriber);
+            Subcribers.Add(subscriber);
         }
        
         private void NotifySubscribers(IRevision revision)

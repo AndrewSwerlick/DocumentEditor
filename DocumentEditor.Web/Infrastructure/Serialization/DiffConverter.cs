@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using LayoutEditor.Core.Util;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace DocumentEditor.Web.Serialization
+namespace DocumentEditor.Web.Infrastructure.Serialization
 {
     public class DiffConverter : CustomCreationConverter<Diff>
     {

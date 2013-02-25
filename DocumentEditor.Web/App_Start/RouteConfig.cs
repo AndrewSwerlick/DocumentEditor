@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using DocumentEditor.Web.Infrastructure;
 
 namespace DocumentEditor.Web
 {
@@ -11,6 +12,7 @@ namespace DocumentEditor.Web
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapConnection<DocumentConnection>("documents", "/signalr/documents/subscriptions");
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(

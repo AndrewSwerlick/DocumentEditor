@@ -1,6 +1,6 @@
 ﻿using DocumentEditor.Core.Models;
 using DocumentEditor.Core.Tests.Util;
-using DocumentEditor.Web.Serialization;
+using DocumentEditor.Web.Infrastructure.Serialization;
 using NUnit.Framework;
 using Raven.Client.Embedded;
 

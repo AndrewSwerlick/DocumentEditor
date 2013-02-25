@@ -1,4 +1,5 @@
-﻿using DocumentEditor.Commands.DTOs;
+﻿using System;
+using DocumentEditor.Commands.DTOs;
 using DocumentEditor.Core;
 using DocumentEditor.Core.Models;
 using Microsoft.AspNet.SignalR;
@@ -20,11 +21,11 @@ namespace DocumentEditor.Commands.DocumentCommands
         {
             var document = Session.Load<Document>(_request.Id);
 
-            var subscriber = new Subscriber();
+            var subscriber = new Subscriber(_request.ConnectionId);
             document.AddSubscriber(subscriber);
 
             subscriber.SubscriberNotifiedOfUpdate +=
-                (o, e) => _request.Connection.Send(new ConnectionMessage(_request.ConnectionId, e));
+                (o, e) => _request.Connection.Send(_request.ConnectionId, e);
         }
     }
 }

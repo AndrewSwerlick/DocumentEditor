@@ -4,7 +4,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
 using Ninject;
 
-namespace DocumentEditor.Web
+namespace DocumentEditor.Web.Infrastructure
 {
     public class NinjectControllerActivator : IHttpControllerActivator
     {
