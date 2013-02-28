@@ -1,9 +1,8 @@
 ﻿define(["currentModel",
         "libs/diff-match-patch",
         "jquery",
-        "libs/rangy-selectionsaverestore",
         "signalR"
-    ], function(currentDoc, diff_match_patch, $,rangy,signalR) {
+    ], function(currentDoc, diff_match_patch, $,signalR) {
         var controller = function(scope) {
             var dmp = new diff_match_patch();
             window.testDoc = currentDoc;
@@ -22,24 +21,6 @@
             });
             connection.error(function(error) {
                 console.warn(error);
-            });
-
-            var selectionPatch;
-            var selection;
-            scope.doc.on("contentChanging", function() {
-                var currentText = $("#doc").html();
-                selection = rangy.saveSelection();
-                console.log("selection " + JSON.stringify(selection.rangeInfos) + " saved");
-                var textWithSelection = $("#doc").html();
-                selectionPatch = dmp.patch_make(currentText, textWithSelection);
-            });
-            scope.doc.on("contentChanged", function() {
-                scope.$apply();
-                var textAfterEdit = $("#doc").html();
-                $("#doc").html(dmp.patch_apply(selectionPatch, textAfterEdit)[0]);
-                rangy.restoreSelection(selection);
-                console.log("selection " + JSON.stringify(selection.rangeInfos) + " restored");
-                rangy.removeMarkers(selection);
             });
 
             scope.doc.on("edited", function (revision) {
@@ -61,13 +42,15 @@
             });
 
             var timer;
-            scope.keyup = function(event) {
+            scope.docEdited = function (oldValue, newValue) {
+                if (newValue == oldValue)
+                    return;
                 if (timer)
                     clearTimeout(timer);
-                timer = setTimeout(function() {
-                    var currentText = event.target.innerHTML;                   
-                    var patch = dmp.patch_make(scope.doc.content, currentText);
-                    scope.doc.edit(patch);                   
+                timer = setTimeout(function () {
+                    var currentText = newValue;
+                    var patch = dmp.patch_make(scope.doc.content, newValue);
+                    scope.doc.edit(patch);
                 }, 1000);
             };
             

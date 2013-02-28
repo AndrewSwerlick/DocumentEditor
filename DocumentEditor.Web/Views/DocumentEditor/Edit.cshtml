@@ -6,6 +6,8 @@
 
 @section Scripts
 {
+    <script src="/scripts/libs/rangy-core.js"></script>
+    <script src="/scripts/libs/rangy-selectionsaverestore.js"></script>
     <script src="/Scripts/require.js"></script>
     <script>
         define("currentModel", ["models/document"], function(Document) {
@@ -19,9 +21,6 @@
 }
 
 <div ng-controller="documentEditorController">
-    <h2>title</h2>
-    <div id="doc" contenteditable="true" 
-         ui-event="{keyup: 'keyup($event)'}"
-        ng-bind-html-unsafe="doc.content">
-    </div>
+    <h2>title</h2>   
+    <texteditor text="doc.content" on-edited="docEdited"></texteditor>
 </div>

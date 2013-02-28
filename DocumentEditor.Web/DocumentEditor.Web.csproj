@@ -217,6 +217,7 @@
     <Content Include="Scripts\spec\lib\mocha.js" />
     <Content Include="Scripts\spec\models\document_spec.js" />
     <Content Include="Scripts\utils\guid.js" />
+    <Content Include="Scripts\view\textEditorDirective.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -228,7 +229,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\view\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
