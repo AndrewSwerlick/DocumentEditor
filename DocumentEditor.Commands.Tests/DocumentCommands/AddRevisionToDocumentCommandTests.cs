@@ -27,6 +27,7 @@ namespace DocumentEditor.Commands.Tests.DocumentCommands
                 RevisionId = Guid.NewGuid(),
                 Patches = Patches.Make(document.Contents, "Test changed").ToArray()
             };
+
             var command = new AddRevisionToDocumentCommand(revisionDTO);
 
             ExecuteCommand(command);
